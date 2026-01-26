@@ -4,8 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
+import { checkUser } from "@/lib/check-user";
 
-const Header = () => {
+const Header = async () => {
+  await checkUser();
   return (
     <div className='flex top-0 bg-white/80 backdrop-blur-md z-50'>
       <nav className="container mx-auto px-4 flex items-center justify-between  ">
@@ -48,7 +50,7 @@ const Header = () => {
             <UserButton appearance={{
               elements: {
                 avatarBox: "w-10 h-10"
-              } 
+              }
             }} />
           </SignedIn>
         </div>
