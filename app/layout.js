@@ -14,13 +14,13 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
 
 
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.className}`} suppressHydrationWarning>
           {/* Header */}
           <Header />
           <main className="min-h-screen">{children}</main>
-             <Toaster richColors/>
+          <Toaster richColors />
 
 
 

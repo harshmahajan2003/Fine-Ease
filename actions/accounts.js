@@ -6,10 +6,10 @@ import { revalidatePath } from "next/cache";
 
 const serializeTransaction = (obj) => {
     const serialized = { ...obj };
-    if (obj.createdAt) {
+    if (obj.balance) {
         serialized.balance = obj.balance.toNumber();
     }
-    if (obj.updatedAt) {
+    if (obj.amount) {
         serialized.amount = obj.amount.toNumber();
     }
     return serialized;
@@ -35,15 +35,15 @@ export async function updateDefaultAccount(accountId) {
         });
 
         const account = await db.account.update({
-            where: { id: accountId, userId: user.id },
+            where: { id: accountId },
             data: { isDefault: true },
         });
 
         revalidatePath("/dashboard");
-        return { sucess: true, data: serializeTransaction(account) }
+        return { success: true, data: serializeTransaction(account) }
 
     } catch (error) {
-        return { sucess: false, error: error.message }
+        return { success: false, error: error.message }
     }
 }
 
@@ -61,7 +61,7 @@ export async function getAccountWithTransactions(accountId) {
         throw new Error("User not found");
     }
 
-    const account = await db.account.findUnique({
+    const account = await db.account.findFirst({
         where: { id: accountId, userId: user.id },
         include: {
             transactions: {
@@ -80,5 +80,5 @@ export async function getAccountWithTransactions(accountId) {
         throw new Error("Account not found");
     }
 
-    return { sucess: true, data: { ...serializeTransaction(account), transactions: account.transactions.map(serializeTransaction) } }
+    return { success: true, data: { ...serializeTransaction(account), transactions: account.transactions.map(serializeTransaction) } }
 }
