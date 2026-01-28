@@ -60,7 +60,7 @@ export function PricingCard({ isPremium, subscriptionEnd, cancelAtPeriodEnd = fa
         try {
             const result = await cancelSubscription();
             toast.success("Subscription cancelled", {
-                description: "You&apos;ll still have access until the end of your billing period.",
+                description: "You'll still have access until the end of your billing period.",
             });
             router.refresh();
         } catch (error) {

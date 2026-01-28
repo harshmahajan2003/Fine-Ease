@@ -44,7 +44,7 @@ export function SupportForm({ userName, userEmail }) {
             await sendSupportEmail(formData);
             setSuccess(true);
             toast.success("Support request sent successfully!", {
-                description: "We&apos;ll get back to you within 24 hours.",
+                description: "We'll get back to you within 24 hours.",
             });
             setFormData({ subject: "", message: "", priority: "medium" });
         } catch (error) {

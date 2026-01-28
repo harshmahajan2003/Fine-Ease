@@ -29,7 +29,7 @@ const CustomTooltip = ({ active, payload, label, currency }) => {
                     Expenses: {formatCurrency(expenses, currency)}
                 </p>
                 <hr className="my-1" />
-                <p className={`text-sm font-medium ${net >= 0 ? 'text-green-700' : &apos;text-red-700&apos;}`}>
+                <p className={`text-sm font-medium ${net >= 0 ? 'text-green-700' : 'text-red-700'}`}>
                     Net: {formatCurrency(net, currency)}
                 </p>
             </div>

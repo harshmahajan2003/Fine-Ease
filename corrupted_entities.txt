@@ -1,0 +1,8 @@
+﻿app/(main)/analytics/_components/category-breakdown.jsx:71:                    <p className="text-sm text-gray-500">This month&apos;s expenses by category</p>
+app/(main)/analytics/_components/category-breakdown.jsx:88:                <p className="text-sm text-gray-500">This month&apos;s expenses by category</p>
+app/(main)/dashboard/_components/premium-success-banner.jsx:57:                        You&apos;ve unlocked:
+app/(main)/pricing/_components/pricing-card.jsx:63:                description: "You&apos;ll still have access until the end of your billing period.",
+app/(main)/pricing/_components/pricing-card.jsx:243:                                            You&apos;ll still have access to all premium features until{" "}
+app/(main)/support/_components/support-form.jsx:47:                description: "We&apos;ll get back to you within 24 hours.",
+app/(main)/support/_components/support-form.jsx:69:                            We&apos;ve received your support request and will respond within 24 hours.
+components/ui/button.jsx:29:        "icon-xs": "size-6 rounded-md [&_svg:not([class*=&apos;size-&apos;])]:size-3",

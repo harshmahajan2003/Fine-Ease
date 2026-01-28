@@ -22,24 +22,24 @@ const COLORS = [
     "#f97316", // orange
 ];
 
+const CustomTooltip = ({ active, payload, total, currency }) => {
+    if (active && payload && payload.length) {
+        const item = payload[0];
+        const percentage = total > 0 ? ((item.value / total) * 100).toFixed(1) : 0;
+        return (
+            <div className="bg-white p-3 border rounded-lg shadow-lg">
+                <p className="font-medium text-gray-900 capitalize">{item.name}</p>
+                <p className="text-sm text-gray-600">
+                    {formatCurrency(item.value, currency)} ({percentage}%)
+                </p>
+            </div>
+        );
+    }
+    return null;
+};
+
 export function CategoryBreakdown({ data, currency }) {
     const total = data.reduce((sum, item) => sum + item.value, 0);
-
-    const CustomTooltip = ({ active, payload }) => {
-        if (active && payload && payload.length) {
-            const item = payload[0];
-            const percentage = ((item.value / total) * 100).toFixed(1);
-            return (
-                <div className="bg-white p-3 border rounded-lg shadow-lg">
-                    <p className="font-medium text-gray-900 capitalize">{item.name}</p>
-                    <p className="text-sm text-gray-600">
-                        {formatCurrency(item.value, currency)} ({percentage}%)
-                    </p>
-                </div>
-            );
-        }
-        return null;
-    };
 
     const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
         if (percent < 0.05) return null; // Don't show label for < 5%
@@ -108,7 +108,7 @@ export function CategoryBreakdown({ data, currency }) {
                                     />
                                 ))}
                             </Pie>
-                            <Tooltip content={<CustomTooltip />} />
+                            <Tooltip content={<CustomTooltip total={total} currency={currency} />} />
                             <Legend
                                 formatter={(value) => (
                                     <span className="capitalize text-sm">{value}</span>
@@ -126,7 +126,7 @@ export function CategoryBreakdown({ data, currency }) {
                                     className="w-3 h-3 rounded-full"
                                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                                 />
-                                <span className="capitalize">{item.name.replace(/-/g, &apos; &apos;)}</span>
+                                <span className="capitalize">{item.name.replace(/-/g, ' ')}</span>
                             </div>
                             <span className="font-medium">
                                 {formatCurrency(item.value, currency)}
