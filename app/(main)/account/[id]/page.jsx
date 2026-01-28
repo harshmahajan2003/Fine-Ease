@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { AccountChart } from "../_components/account-chart";
 import { formatCurrency } from "@/lib/currency";
 
+export const dynamic = "force-dynamic";
+
 export default async function AccountPage({ params }) {
     const { id } = await params;
     const [accountData, subscription] = await Promise.all([
