@@ -11,6 +11,8 @@ import {
 import HeroSection from "@/components/hero";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
