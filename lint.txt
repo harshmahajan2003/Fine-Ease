@@ -1,0 +1,54 @@
+
+> finance@0.1.0 lint
+> eslint
+
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\budget-progress.jsx
+  55:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  53 |   useEffect(() => {
+  54 |     if (updatedBudget?.success) {
+> 55 |       setIsEditing(false);
+     |       ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |       toast.success("Budget updated successfully");
+  57 |     }
+  58 |   }, [updatedBudget]);  react-hooks/set-state-in-effect
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\transaction\_components\recipt-scanner.jsx
+  33:6  warning  React Hook useEffect has a missing dependency: 'onScanComplete'. Either include it or remove the dependency array. If 'onScanComplete' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\transaction\_components\transaction-form.jsx
+  121:6   warning  React Hook useEffect has missing dependencies: 'reset' and 'router'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+  123:16  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+  121 |   }, [transactionResult, transactionLoading, editMode]);
+  122 |
+> 123 |   const type = watch("type");
+      |                ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  124 |   const isRecurring = watch("isRecurring");
+  125 |   const date = watch("date");
+  126 |  react-hooks/incompatible-library
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\components\create-account-drawer.jsx
+  110:31  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+  108 |               <Select
+  109 |                 onValueChange={(value) => setValue("type", value)}
+> 110 |                 defaultValue={watch("type")}
+      |                               ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  111 |               >
+  112 |                 <SelectTrigger id="type">
+  113 |                   <SelectValue placeholder="Select type" />  react-hooks/incompatible-library
+
+✖ 5 problems (1 error, 4 warnings)
+
