@@ -5,6 +5,8 @@ import { stripe } from "@/lib/stripe";
 import { sendEmail } from "@/actions/send-email";
 import PremiumWelcomeEmail from "@/emails/premium-welcome";
 
+export const dynamic = "force-dynamic";
+
 export default async function SuccessPage({ searchParams }) {
     const { userId } = await auth();
 
