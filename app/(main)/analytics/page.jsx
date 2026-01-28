@@ -11,6 +11,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Lock } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AnalyticsPage() {
     const { userId } = await auth();
 

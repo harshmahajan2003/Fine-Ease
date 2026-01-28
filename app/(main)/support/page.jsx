@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Lock, Headphones, Mail, Clock, Shield } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function SupportPage() {
     const { userId } = await auth();
 

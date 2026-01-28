@@ -4,6 +4,8 @@ import { db } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { PricingCard } from "./_components/pricing-card";
 
+export const dynamic = "force-dynamic";
+
 export default async function PricingPage() {
     const { userId } = await auth();
 

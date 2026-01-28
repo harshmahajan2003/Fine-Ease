@@ -11,6 +11,8 @@ import { Plus } from "lucide-react";
 import { DashboardOverview } from "./_components/transaction-overview";
 import { PremiumSuccessBanner } from "./_components/premium-success-banner";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
     const [accounts, transactions, subscription] = await Promise.all([
         getUserAccounts(),
