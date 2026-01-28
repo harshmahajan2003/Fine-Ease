@@ -13,31 +13,32 @@ import {
 } from "recharts";
 import { formatCurrency } from "@/lib/currency";
 
-export function IncomeExpenseChart({ data, currency }) {
-    const CustomTooltip = ({ active, payload, label }) => {
-        if (active && payload && payload.length) {
-            const income = payload.find(p => p.dataKey === "income")?.value || 0;
-            const expenses = payload.find(p => p.dataKey === "expenses")?.value || 0;
-            const net = income - expenses;
+const CustomTooltip = ({ active, payload, label, currency }) => {
+    if (active && payload && payload.length) {
+        const income = payload.find(p => p.dataKey === "income")?.value || 0;
+        const expenses = payload.find(p => p.dataKey === "expenses")?.value || 0;
+        const net = income - expenses;
 
-            return (
-                <div className="bg-white p-3 border rounded-lg shadow-lg">
-                    <p className="font-medium text-gray-900">{label}</p>
-                    <p className="text-sm text-green-600">
-                        Income: {formatCurrency(income, currency)}
-                    </p>
-                    <p className="text-sm text-red-600">
-                        Expenses: {formatCurrency(expenses, currency)}
-                    </p>
-                    <hr className="my-1" />
-                    <p className={`text-sm font-medium ${net >= 0 ? 'text-green-700' : 'text-red-700'}`}>
-                        Net: {formatCurrency(net, currency)}
-                    </p>
-                </div>
-            );
-        }
-        return null;
-    };
+        return (
+            <div className="bg-white p-3 border rounded-lg shadow-lg">
+                <p className="font-medium text-gray-900">{label}</p>
+                <p className="text-sm text-green-600">
+                    Income: {formatCurrency(income, currency)}
+                </p>
+                <p className="text-sm text-red-600">
+                    Expenses: {formatCurrency(expenses, currency)}
+                </p>
+                <hr className="my-1" />
+                <p className={`text-sm font-medium ${net >= 0 ? 'text-green-700' : &apos;text-red-700&apos;}`}>
+                    Net: {formatCurrency(net, currency)}
+                </p>
+            </div>
+        );
+    }
+    return null;
+};
+
+export function IncomeExpenseChart({ data, currency }) {
 
     return (
         <Card className="col-span-1">
@@ -57,7 +58,7 @@ export function IncomeExpenseChart({ data, currency }) {
                                 tick={{ fontSize: 12 }}
                                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                             />
-                            <Tooltip content={<CustomTooltip />} />
+                            <Tooltip content={<CustomTooltip currency={currency} />} />
                             <Legend />
                             <Bar
                                 dataKey="income"
@@ -78,3 +79,4 @@ export function IncomeExpenseChart({ data, currency }) {
         </Card>
     );
 }
+

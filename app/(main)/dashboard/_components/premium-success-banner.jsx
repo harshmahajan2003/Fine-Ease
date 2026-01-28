@@ -54,7 +54,7 @@ export function PremiumSuccessBanner() {
                 {/* Features Unlocked */}
                 <div className="p-6">
                     <h3 className="font-semibold text-gray-900 mb-4">
-                        You've unlocked:
+                        You&apos;ve unlocked:
                     </h3>
                     <ul className="space-y-3">
                         <li className="flex items-center gap-3">

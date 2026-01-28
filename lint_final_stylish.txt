@@ -1,0 +1,73 @@
+﻿
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\analytics\_components\category-breakdown.jsx
+   71:68  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react/no-unescaped-entities
+   88:64  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         react/no-unescaped-entities
+  111:48  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  109 |                                 ))}
+  110 |                             </Pie>
+> 111 |                             <Tooltip content={<CustomTooltip />} />
+      |                                                ^^^^^^^^^^^^^ This component is created during render
+  112 |                             <Legend
+  113 |                                 formatter={(value) => (
+  114 |                                     <span className="capitalize text-sm">{value}</span>
+
+  26 |     const total = data.reduce((sum, item) => sum + item.value, 0);
+  27 |
+> 28 |     const CustomTooltip = ({ active, payload }) => {
+     |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |         if (active && payload && payload.length) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 30 |             const item = payload[0];
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 41 |         return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |     };
+     | ^^^^^^ The component is created during render here
+  43 |
+  44 |     const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+  45 |         if (percent < 0.05) return null; // Don't show label for < 5%  react-hooks/static-components
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\account-card.jsx
+  133:77  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  133:84  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\budget-progress.jsx
+  56:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  54 |     useEffect(() => {
+  55 |         if (updatedBudget?.success) {
+> 56 |             setIsEditing(false);
+     |             ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  57 |             toast.success("Budget updated successfully");
+  58 |         }
+  59 |     }, [updatedBudget]);  react-hooks/set-state-in-effect
+
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\premium-success-banner.jsx
+  16:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  14 |     useEffect(() => {
+  15 |         if (searchParams.get("success") === "true") {
+> 16 |             setShow(true);
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  17 |             const receipt = searchParams.get("receipt");
+  18 |             if (receipt) {
+  19 |                 setReceiptUrl(decodeURIComponent(receipt));  react-hooks/set-state-in-effect
+
+Γ£û 7 problems (7 errors, 0 warnings)
+

@@ -68,7 +68,7 @@ export function CategoryBreakdown({ data, currency }) {
             <Card className="col-span-1">
                 <CardHeader>
                     <CardTitle className="text-lg font-semibold">🥧 Category Breakdown</CardTitle>
-                    <p className="text-sm text-gray-500">This month's expenses by category</p>
+                    <p className="text-sm text-gray-500">This month&apos;s expenses by category</p>
                 </CardHeader>
                 <CardContent>
                     <div className="h-[300px] flex items-center justify-center text-gray-500">
@@ -85,7 +85,7 @@ export function CategoryBreakdown({ data, currency }) {
                 <CardTitle className="text-lg font-semibold flex items-center gap-2">
                     🥧 Category Breakdown
                 </CardTitle>
-                <p className="text-sm text-gray-500">This month's expenses by category</p>
+                <p className="text-sm text-gray-500">This month&apos;s expenses by category</p>
             </CardHeader>
             <CardContent>
                 <div className="h-[300px]">
@@ -126,7 +126,7 @@ export function CategoryBreakdown({ data, currency }) {
                                     className="w-3 h-3 rounded-full"
                                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                                 />
-                                <span className="capitalize">{item.name.replace(/-/g, ' ')}</span>
+                                <span className="capitalize">{item.name.replace(/-/g, &apos; &apos;)}</span>
                             </div>
                             <span className="font-medium">
                                 {formatCurrency(item.value, currency)}
@@ -138,3 +138,4 @@ export function CategoryBreakdown({ data, currency }) {
         </Card>
     );
 }
+

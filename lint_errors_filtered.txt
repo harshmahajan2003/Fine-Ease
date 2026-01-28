@@ -1,0 +1,14 @@
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\analytics\_components\category-breakdown.jsx
+  129:86  error  Parsing error: Unexpected token (129:86)
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\analytics\_components\income-expense-chart.jsx
+  32:83  error  Parsing error: Unexpected token (32:83)
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\analytics\_components\savings-rate.jsx
+  97:135  error  Parsing error: Unexpected token (97:135)
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\account-card.jsx
+  133:77  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  133:84  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\budget-progress.jsx
+  56:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+C:\Users\Harsh\Desktop\COMEBACK\Finance\finance\app\(main)\dashboard\_components\premium-success-banner.jsx
+  16:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+G£û 7 problems (7 errors, 0 warnings)

@@ -10,12 +10,11 @@ import { scanReceipt } from "@/actions/transaction";
 export function ReceiptScanner({ onScanComplete }) {
   const fileInputRef = useRef(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [scanSuccess, setScanSuccess] = useState(false);
-
   const {
     loading: scanReceiptLoading,
     fn: scanReceiptFn,
     data: scannedData,
+    setData: setScannedData,
   } = useFetch(scanReceipt);
 
   const handleReceiptScan = async (file) => {
@@ -27,26 +26,23 @@ export function ReceiptScanner({ onScanComplete }) {
     // Create preview URL
     const url = URL.createObjectURL(file);
     setPreviewUrl(url);
-    setScanSuccess(false);
 
-    await scanReceiptFn(file);
+    const result = await scanReceiptFn(file);
+    if (result) {
+      onScanComplete(result);
+      toast.success("Receipt scanned successfully!");
+    }
   };
 
   const clearPreview = () => {
     setPreviewUrl(null);
-    setScanSuccess(false);
+    setScannedData(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
 
-  useEffect(() => {
-    if (scannedData && !scanReceiptLoading) {
-      onScanComplete(scannedData);
-      setScanSuccess(true);
-      toast.success("Receipt scanned successfully!");
-    }
-  }, [scanReceiptLoading, scannedData]);
+  const scanSuccess = Boolean(scannedData && !scanReceiptLoading);
 
   // Cleanup preview URL on unmount
   useEffect(() => {

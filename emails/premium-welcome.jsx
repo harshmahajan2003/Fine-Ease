@@ -37,7 +37,7 @@ export default function PremiumWelcomeEmail({
                         </Text>
 
                         <Heading as="h3" style={subheading}>
-                            What you've unlocked:
+                            What you&apos;ve unlocked:
                         </Heading>
 
                         <ul style={list}>

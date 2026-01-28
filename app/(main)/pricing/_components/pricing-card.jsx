@@ -60,7 +60,7 @@ export function PricingCard({ isPremium, subscriptionEnd, cancelAtPeriodEnd = fa
         try {
             const result = await cancelSubscription();
             toast.success("Subscription cancelled", {
-                description: "You'll still have access until the end of your billing period.",
+                description: "You&apos;ll still have access until the end of your billing period.",
             });
             router.refresh();
         } catch (error) {
@@ -240,7 +240,7 @@ export function PricingCard({ isPremium, subscriptionEnd, cancelAtPeriodEnd = fa
                                         <AlertDialogTitle>Cancel Subscription?</AlertDialogTitle>
                                         <AlertDialogDescription>
                                             Are you sure you want to cancel your Premium subscription?
-                                            You'll still have access to all premium features until{" "}
+                                            You&apos;ll still have access to all premium features until{" "}
                                             <strong>{subscriptionEnd ? format(new Date(subscriptionEnd), "PPP") : "the end of your billing period"}</strong>.
                                             You can resume your subscription anytime before that date.
                                         </AlertDialogDescription>

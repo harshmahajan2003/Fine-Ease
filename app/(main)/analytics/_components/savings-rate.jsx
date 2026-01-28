@@ -94,9 +94,9 @@ export function SavingsRate({ summary, currency }) {
                                 {formatCurrency(summary.totalExpenses, currency)}
                             </span>
                         </div>
-                        <div className={`flex justify-between items-center p-3 rounded-lg ${summary.totalSavings >= 0 ? 'bg-blue-50' : 'bg-red-50'}`}>
+                        <div className={`flex justify-between items-center p-3 rounded-lg ${summary.totalSavings >= 0 ? 'bg-blue-50' : &apos;bg-red-50&apos;}`}>
                             <span className="text-sm text-gray-600">Net Savings</span>
-                            <span className={`font-medium ${summary.totalSavings >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
+                            <span className={`font-medium ${summary.totalSavings >= 0 ? 'text-blue-600' : &apos;text-red-600&apos;}`}>
                                 {formatCurrency(summary.totalSavings, currency)}
                             </span>
                         </div>
@@ -111,3 +111,4 @@ export function SavingsRate({ summary, currency }) {
         </Card>
     );
 }
+

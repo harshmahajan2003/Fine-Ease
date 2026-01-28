@@ -13,22 +13,23 @@ import {
 } from "recharts";
 import { formatCurrency } from "@/lib/currency";
 
+const CustomTooltip = ({ active, payload, label, currency }) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-white p-3 border rounded-lg shadow-lg">
+                <p className="font-medium text-gray-900">{label}</p>
+                {payload.map((entry, index) => (
+                    <p key={index} style={{ color: entry.color }} className="text-sm">
+                        {entry.name}: {formatCurrency(entry.value, currency)}
+                    </p>
+                ))}
+            </div>
+        );
+    }
+    return null;
+};
+
 export function SpendingTrends({ data, currency }) {
-    const CustomTooltip = ({ active, payload, label }) => {
-        if (active && payload && payload.length) {
-            return (
-                <div className="bg-white p-3 border rounded-lg shadow-lg">
-                    <p className="font-medium text-gray-900">{label}</p>
-                    {payload.map((entry, index) => (
-                        <p key={index} style={{ color: entry.color }} className="text-sm">
-                            {entry.name}: {formatCurrency(entry.value, currency)}
-                        </p>
-                    ))}
-                </div>
-            );
-        }
-        return null;
-    };
 
     return (
         <Card className="col-span-1">
@@ -58,7 +59,7 @@ export function SpendingTrends({ data, currency }) {
                                 tick={{ fontSize: 12 }}
                                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                             />
-                            <Tooltip content={<CustomTooltip />} />
+                            <Tooltip content={<CustomTooltip currency={currency} />} />
                             <Legend />
                             <Area
                                 type="monotone"
