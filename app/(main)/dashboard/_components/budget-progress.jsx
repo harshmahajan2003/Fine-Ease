@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Pencil, Check, X } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
@@ -19,6 +20,7 @@ import { updateBudget } from "@/actions/budget";
 import { formatCurrency } from "@/lib/currency";
 
 export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR" }) {
+    const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
     const [newBudget, setNewBudget] = useState(
         initialBudget?.amount?.toString() || ""
@@ -55,8 +57,9 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
         if (updatedBudget?.success) {
             setIsEditing(false);
             toast.success("Budget updated successfully");
+            router.refresh(); // Refresh to get updated server data
         }
-    }, [updatedBudget]);
+    }, [updatedBudget, router]);
 
     useEffect(() => {
         if (error) {

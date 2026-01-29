@@ -73,7 +73,7 @@ export function AddTransactionForm({
                     type: "EXPENSE",
                     amount: "",
                     description: "",
-                    accountId: accounts.find((ac) => ac.isDefault)?.id,
+                    accountId: accounts.find((ac) => ac.isDefault)?.id || accounts[0]?.id || "",
                     date: new Date(),
                     isRecurring: false,
                 },
