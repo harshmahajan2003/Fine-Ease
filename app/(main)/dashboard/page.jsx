@@ -30,7 +30,12 @@ export default async function DashboardPage() {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-8">
+            {/* Page Title */}
+            <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                📊 Dashboard
+            </h1>
+
             {/* Premium Success Banner */}
             <Suspense fallback={null}>
                 <PremiumSuccessBanner />

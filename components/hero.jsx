@@ -27,22 +27,22 @@ const HeroSection = () => {
     }, []);
 
     return (
-        <section className="pt-40 pb-20 px-4 relative overflow-hidden">
+        <section className="pt-24 md:pt-40 pb-12 md:pb-20 px-4 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
                 <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#C9EBFF,transparent)]"></div>
             </div>
             <div className="container mx-auto text-center relative z-10">
-                <h1 className="text-5xl md:text-8xl lg:text-[105px] pb-6 gradient-title">
-                    Manage Your Finances <br /> with Intelligence
+                <h1 className="text-3xl sm:text-5xl md:text-8xl lg:text-[105px] pb-4 md:pb-6 gradient-title leading-tight">
+                    Manage Your Finances <br className="hidden sm:block" />with Intelligence
                 </h1>
-                <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto px-2">
                     An AI-powered financial management platform that helps you track,
                     analyze, and optimize your spending with real-time insights.
                 </p>
                 <div className="flex justify-center space-x-4">
                     <Link href="/dashboard">
-                        <Button size="lg" className="px-8 gradient hover:opacity-90 animate-gradient">
+                        <Button size="lg" className="px-6 md:px-8 gradient hover:opacity-90 animate-gradient">
                             Get Started
                         </Button>
                     </Link>

@@ -70,12 +70,12 @@ export default async function AnalyticsPage() {
     const { monthlyData, categoryData, summary, currency } = analyticsData;
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="mb-8">
-                <h1 className="text-4xl font-bold gradient-title mb-2">
-                    Advanced Analytics
+        <div className="space-y-4 md:space-y-8">
+            <div className="mb-4 md:mb-8">
+                <h1 className="text-2xl md:text-4xl font-bold gradient-title mb-2">
+                    📈 Advanced Analytics
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                     Deep insights into your financial health
                 </p>
             </div>

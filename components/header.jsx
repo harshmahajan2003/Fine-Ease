@@ -7,6 +7,7 @@ import { checkUser } from "@/lib/check-user";
 import Image from "next/image";
 import { getUserSubscription } from "@/actions/subscription";
 import { CurrencySelector } from "@/components/currency-selector";
+import { MobileNav } from "@/components/mobile-nav";
 
 const Header = async () => {
   await checkUser();
@@ -23,69 +24,63 @@ const Header = async () => {
 
   return (
     <header className="fixed top-0 w-full bg-white shadow-sm z-50 border-b border-gray-100">
-      <nav className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <nav className="container mx-auto px-4 py-2 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src={"/logo.png"}
             alt="Fine Ease Logo"
-            width={250}
-            height={90}
-            className="h-32 w-auto object-contain"
+            width={200}
+            height={60}
+            className="h-12 md:h-16 w-auto object-contain"
             priority
           />
         </Link>
 
-        {/* Navigation Links - Different for signed in/out users */}
-        <div className="hidden md:flex items-center space-x-8">
+        {/* Desktop Navigation Links - Hidden on mobile */}
+        <div className="hidden md:flex items-center space-x-4">
           <SignedOut>
             <a href="#features" className="text-gray-600 hover:text-blue-600">
               Features
             </a>
-            <a
-              href="#testimonials"
-              className="text-gray-600 hover:text-blue-600"
-            >
+            <a href="#testimonials" className="text-gray-600 hover:text-blue-600">
               Testimonials
             </a>
           </SignedOut>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center space-x-4">
+        {/* Desktop Action Buttons - Hidden on mobile */}
+        <div className="hidden md:flex items-center space-x-3">
           <SignedIn>
-            <Link
-              href="/dashboard"
-              className="text-gray-600 hover:text-blue-600 flex items-center gap-2"
-            >
-              <Button variant="outline">
-                <LayoutDashboard size={18} />
-                <span className="hidden md:inline">Dashboard</span>
+            <Link href="/dashboard">
+              <Button variant="outline" size="sm">
+                <LayoutDashboard size={16} />
+                <span className="ml-1">Dashboard</span>
               </Button>
             </Link>
             <Link href="/pricing">
-              <Button variant="outline" className="flex items-center gap-2 border-purple-300 text-purple-600 hover:bg-purple-50">
-                <Sparkles size={18} />
-                <span className="hidden md:inline">Premium</span>
+              <Button variant="outline" size="sm" className="border-purple-300 text-purple-600 hover:bg-purple-50">
+                <Sparkles size={16} />
+                <span className="ml-1">Premium</span>
               </Button>
             </Link>
             <Link href="/analytics">
-              <Button variant="outline" className="flex items-center gap-2 border-blue-300 text-blue-600 hover:bg-blue-50">
-                <BarChart3 size={18} />
-                <span className="hidden md:inline">Analytics</span>
+              <Button variant="outline" size="sm" className="border-blue-300 text-blue-600 hover:bg-blue-50">
+                <BarChart3 size={16} />
+                <span className="ml-1">Analytics</span>
               </Button>
             </Link>
             <Link href="/support">
-              <Button variant="outline" className="flex items-center gap-2 border-green-300 text-green-600 hover:bg-green-50">
-                <Headphones size={18} />
-                <span className="hidden md:inline">Support</span>
+              <Button variant="outline" size="sm" className="border-green-300 text-green-600 hover:bg-green-50">
+                <Headphones size={16} />
+                <span className="ml-1">Support</span>
               </Button>
             </Link>
-            <a href="/transaction/create">
-              <Button className="flex items-center gap-2">
-                <PenBox size={18} />
-                <span className="hidden md:inline">Add Transaction</span>
+            <Link href="/transaction/create">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <PenBox size={16} />
+                <span className="ml-1">Add Transaction</span>
               </Button>
-            </a>
+            </Link>
           </SignedIn>
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
@@ -104,12 +99,41 @@ const Header = async () => {
               <UserButton
                 appearance={{
                   elements: {
-                    avatarBox: "w-10 h-10",
+                    avatarBox: "w-9 h-9",
                   },
                 }}
               />
             </div>
           </SignedIn>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className="flex md:hidden items-center gap-2">
+          <SignedIn>
+            <Link href="/transaction/create">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                <PenBox size={16} />
+              </Button>
+            </Link>
+            {isPremium && (
+              <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                <Crown className="h-3 w-3" />
+              </div>
+            )}
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8",
+                },
+              }}
+            />
+            <MobileNav isPremium={isPremium} />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton forceRedirectUrl="/dashboard">
+              <Button variant="outline" size="sm">Login</Button>
+            </SignInButton>
+          </SignedOut>
         </div>
       </nav>
     </header>

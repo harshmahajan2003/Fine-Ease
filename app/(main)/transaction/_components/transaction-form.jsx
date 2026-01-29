@@ -196,7 +196,7 @@ export function AddTransactionForm({
             </div>
 
             {/* Amount and Account */}
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-4 md:gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                     <label className="text-sm font-medium">Amount</label>
                     <Input
