@@ -56,7 +56,7 @@ export default function DownloadPDFButton() {
             toast.success("PDF downloaded successfully");
         } catch (error) {
             console.error("Error generating PDF:", error);
-            toast.error("Failed to generate PDF");
+            toast.error(error.message || "Failed to generate PDF");
         } finally {
             setIsGenerating(false);
         }
