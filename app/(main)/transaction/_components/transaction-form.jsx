@@ -210,35 +210,48 @@ export function AddTransactionForm({
                     )}
                 </div>
 
-                <div className="space-y-2">
-                    <label className="text-sm font-medium">Account</label>
-                    <Select
-                        onValueChange={(value) => setValue("accountId", value)}
-                        defaultValue={getValues("accountId")}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select account" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {accounts.map((account) => (
-                                <SelectItem key={account.id} value={account.id}>
-                                    {account.name} ({formatCurrency(parseFloat(account.balance), currency)})
-                                </SelectItem>
-                            ))}
-                            <CreateAccountDrawer>
-                                <Button
-                                    variant="outline"
-                                    className="relative flex w-full cursor-pointer select-none items-center justify-center rounded-sm py-2 text-sm font-medium outline-none hover:bg-slate-100 hover:text-primary transition-colors border-dashed border-2"
-                                >
-                                    + Create New Account
-                                </Button>
-                            </CreateAccountDrawer>
-                        </SelectContent>
-                    </Select>
-                    {errors.accountId && (
-                        <p className="text-sm text-red-500">{errors.accountId.message}</p>
-                    )}
-                </div>
+                {/* Only show account selector if multiple accounts */}
+                {accounts.length > 1 ? (
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Account</label>
+                        <Select
+                            onValueChange={(value) => setValue("accountId", value)}
+                            defaultValue={getValues("accountId")}
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select account" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {accounts.map((account) => (
+                                    <SelectItem key={account.id} value={account.id}>
+                                        {account.name} ({formatCurrency(parseFloat(account.balance), currency)})
+                                    </SelectItem>
+                                ))}
+                                <CreateAccountDrawer>
+                                    <Button
+                                        variant="outline"
+                                        className="relative flex w-full cursor-pointer select-none items-center justify-center rounded-sm py-2 text-sm font-medium outline-none hover:bg-slate-100 hover:text-primary transition-colors border-dashed border-2"
+                                    >
+                                        + Create New Account
+                                    </Button>
+                                </CreateAccountDrawer>
+                            </SelectContent>
+                        </Select>
+                        {errors.accountId && (
+                            <p className="text-sm text-red-500">{errors.accountId.message}</p>
+                        )}
+                    </div>
+                ) : accounts.length === 1 ? (
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Account</label>
+                        <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-md border">
+                            <span className="text-sm font-medium">{accounts[0].name}</span>
+                            <span className="text-xs text-muted-foreground">
+                                ({formatCurrency(parseFloat(accounts[0].balance), currency)})
+                            </span>
+                        </div>
+                    </div>
+                ) : null}
             </div>
 
             {/* Category */}
