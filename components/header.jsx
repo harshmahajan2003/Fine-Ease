@@ -107,19 +107,9 @@ const Header = async () => {
           </SignedIn>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Mobile Navigation - SIMPLIFIED */}
+        <div className="flex md:hidden items-center gap-3">
           <SignedIn>
-            <Link href="/transaction/create">
-              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                <PenBox size={16} />
-              </Button>
-            </Link>
-            {isPremium && (
-              <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                <Crown className="h-3 w-3" />
-              </div>
-            )}
             <UserButton
               appearance={{
                 elements: {
