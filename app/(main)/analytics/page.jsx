@@ -10,6 +10,7 @@ import { AnalyticsSummary } from "./_components/analytics-summary";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Lock } from "lucide-react";
+import DownloadPDFButton from "./_components/download-pdf-button";
 
 export const dynamic = "force-dynamic";
 
@@ -67,35 +68,42 @@ export default async function AnalyticsPage() {
         );
     }
 
+
+
     const { monthlyData, categoryData, summary, currency } = analyticsData;
 
     return (
         <div className="space-y-4 md:space-y-8">
-            <div className="mb-4 md:mb-8">
-                <h1 className="text-2xl md:text-4xl font-bold gradient-title mb-2">
-                    📈 Advanced Analytics
-                </h1>
-                <p className="text-sm md:text-base text-gray-600">
-                    Deep insights into your financial health
-                </p>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 md:mb-8">
+                <div>
+                    <h1 className="text-2xl md:text-4xl font-bold gradient-title mb-2">
+                        📈 Advanced Analytics
+                    </h1>
+                    <p className="text-sm md:text-base text-gray-600">
+                        Deep insights into your financial health
+                    </p>
+                </div>
+                <DownloadPDFButton />
             </div>
 
-            {/* Summary Cards */}
-            <AnalyticsSummary summary={summary} currency={currency} />
+            <div id="analytics-dashboard" className="space-y-6">
+                {/* Summary Cards */}
+                <AnalyticsSummary summary={summary} currency={currency} />
 
-            {/* Charts Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-                {/* Spending Trends */}
-                <SpendingTrends data={monthlyData} currency={currency} />
+                {/* Charts Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Spending Trends */}
+                    <SpendingTrends data={monthlyData} currency={currency} />
 
-                {/* Category Breakdown */}
-                <CategoryBreakdown data={categoryData} currency={currency} />
+                    {/* Category Breakdown */}
+                    <CategoryBreakdown data={categoryData} currency={currency} />
 
-                {/* Income vs Expense */}
-                <IncomeExpenseChart data={monthlyData} currency={currency} />
+                    {/* Income vs Expense */}
+                    <IncomeExpenseChart data={monthlyData} currency={currency} />
 
-                {/* Savings Rate */}
-                <SavingsRate summary={summary} currency={currency} />
+                    {/* Savings Rate */}
+                    <SavingsRate summary={summary} currency={currency} />
+                </div>
             </div>
         </div>
     );
