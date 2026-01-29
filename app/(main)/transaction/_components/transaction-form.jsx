@@ -138,12 +138,28 @@ export function AddTransactionForm({
                     ? "Transaction updated successfully"
                     : "Transaction created successfully"
             );
-            reset();
-            router.push(`/account/${transactionResult.data.accountId}`);
+
+            // Reset form to default values
+            reset({
+                type: "EXPENSE",
+                amount: "",
+                description: "",
+                accountId: accounts.find((ac) => ac.isDefault)?.id || accounts[0]?.id || "",
+                category: "",
+                date: new Date(),
+                isRecurring: false,
+            });
+
+            // Redirect after a short delay so user can see the success message
+            setTimeout(() => {
+                router.push(`/account/${transactionResult.data.accountId}`);
+            }, 1500);
         }
-    }, [transactionResult, transactionLoading, editMode]);
+    }, [transactionResult, transactionLoading, editMode, reset, accounts, router]);
 
     const type = watch("type");
+    const category = watch("category");
+    const accountId = watch("accountId");
     const isRecurring = watch("isRecurring");
     const date = watch("date");
 
@@ -180,7 +196,7 @@ export function AddTransactionForm({
                 <label className="text-sm font-medium">Type</label>
                 <Select
                     onValueChange={(value) => setValue("type", value)}
-                    defaultValue={type}
+                    value={type}
                 >
                     <SelectTrigger>
                         <SelectValue placeholder="Select type" />
@@ -216,7 +232,7 @@ export function AddTransactionForm({
                         <label className="text-sm font-medium">Account</label>
                         <Select
                             onValueChange={(value) => setValue("accountId", value)}
-                            defaultValue={getValues("accountId")}
+                            value={accountId}
                         >
                             <SelectTrigger>
                                 <SelectValue placeholder="Select account" />
@@ -259,7 +275,7 @@ export function AddTransactionForm({
                 <label className="text-sm font-medium">Category</label>
                 <Select
                     onValueChange={(value) => setValue("category", value)}
-                    defaultValue={getValues("category")}
+                    value={category || ""}
                 >
                     <SelectTrigger>
                         <SelectValue placeholder="Select category" />
