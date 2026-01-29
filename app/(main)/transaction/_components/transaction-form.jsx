@@ -76,6 +76,7 @@ export function AddTransactionForm({
                     accountId: accounts.find((ac) => ac.isDefault)?.id || accounts[0]?.id || "",
                     date: new Date(),
                     isRecurring: false,
+                    category: "",
                 },
     });
 
