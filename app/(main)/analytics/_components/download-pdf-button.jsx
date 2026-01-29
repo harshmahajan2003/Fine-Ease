@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { toast } from "sonner";
 
 export default function DownloadPDFButton() {
@@ -11,9 +13,6 @@ export default function DownloadPDFButton() {
     const generatePDF = async () => {
         setIsGenerating(true);
         try {
-            const html2canvas = (await import("html2canvas")).default;
-            const jsPDF = (await import("jspdf")).default;
-
             const element = document.getElementById("analytics-dashboard");
             if (!element) {
                 throw new Error("Analytics dashboard element not found");
