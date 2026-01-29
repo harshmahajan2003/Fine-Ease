@@ -25,6 +25,8 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
     const [newBudget, setNewBudget] = useState(
         initialBudget?.amount?.toString() || ""
     );
+    // Local state to track the current budget (for immediate UI update)
+    const [budget, setBudget] = useState(initialBudget);
 
     const {
         loading: isLoading,
@@ -33,8 +35,8 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
         error,
     } = useFetch(updateBudget);
 
-    const percentUsed = initialBudget
-        ? (currentExpenses / initialBudget.amount) * 100
+    const percentUsed = budget
+        ? (currentExpenses / budget.amount) * 100
         : 0;
 
     const handleUpdateBudget = async () => {
@@ -49,17 +51,30 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
     };
 
     const handleCancel = () => {
-        setNewBudget(initialBudget?.amount?.toString() || "");
+        setNewBudget(budget?.amount?.toString() || "");
         setIsEditing(false);
     };
 
+    // Update local budget state when server update succeeds
     useEffect(() => {
-        if (updatedBudget?.success) {
+        if (updatedBudget?.success && updatedBudget?.data) {
             setIsEditing(false);
+            // Update local budget state immediately
+            setBudget(updatedBudget.data);
+            setNewBudget(updatedBudget.data.amount.toString());
             toast.success("Budget updated successfully");
-            router.refresh(); // Refresh to get updated server data
+            // Also refresh server data in background
+            router.refresh();
         }
     }, [updatedBudget, router]);
+
+    // Sync with initialBudget prop if it changes (from server refresh)
+    useEffect(() => {
+        if (initialBudget) {
+            setBudget(initialBudget);
+            setNewBudget(initialBudget.amount?.toString() || "");
+        }
+    }, [initialBudget]);
 
     useEffect(() => {
         if (error) {
@@ -106,8 +121,8 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
                         ) : (
                             <>
                                 <CardDescription>
-                                    {initialBudget
-                                        ? `${formatCurrency(currentExpenses, currency)} of ${formatCurrency(initialBudget.amount, currency)} spent`
+                                    {budget
+                                        ? `${formatCurrency(currentExpenses, currency)} of ${formatCurrency(budget.amount, currency)} spent`
                                         : "No budget set"}
                                 </CardDescription>
                                 <Button
@@ -124,7 +139,7 @@ export function BudgetProgress({ initialBudget, currentExpenses, currency = "INR
                 </div>
             </CardHeader>
             <CardContent>
-                {initialBudget && (
+                {budget && (
                     <div className="space-y-2">
                         <Progress
                             value={percentUsed}
