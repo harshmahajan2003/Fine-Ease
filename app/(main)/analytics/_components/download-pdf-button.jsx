@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
 import { toast } from "sonner";
 
@@ -18,14 +17,11 @@ export default function DownloadPDFButton() {
                 throw new Error("Analytics dashboard element not found");
             }
 
-            const canvas = await html2canvas(element, {
-                scale: 2, // Higher scale for better quality
-                useCORS: true, // Enable CORS for images
-                logging: false,
+            const dataUrl = await toPng(element, {
+                pixelRatio: 2, // Equivalent to scale: 2
                 backgroundColor: "#ffffff", // Ensure white background
             });
 
-            const imgData = canvas.toDataURL("image/png");
             const pdf = new jsPDF({
                 orientation: "portrait",
                 unit: "mm",
@@ -34,20 +30,23 @@ export default function DownloadPDFButton() {
 
             const imgWidth = 210; // A4 width in mm
             const pageHeight = 297; // A4 height in mm
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            // Calculate height based on aspect ratio
+            const imgProperties = pdf.getImageProperties(dataUrl);
+            const imgHeight = (imgProperties.height * imgWidth) / imgProperties.width;
 
             let heightLeft = imgHeight;
             let position = 0;
 
             // Add first page
-            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            pdf.addImage(dataUrl, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
             // Add subsequent pages if content overflows
             while (heightLeft >= 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
-                pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+                pdf.addImage(dataUrl, "PNG", 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
