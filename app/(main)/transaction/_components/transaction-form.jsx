@@ -158,6 +158,17 @@ export function AddTransactionForm({
         }
     }, [transactionResult, transactionLoading, editMode, reset, accounts, router]);
 
+    // Update accountId if it's empty and accounts become available (e.g., after first account creation)
+    useEffect(() => {
+        const currentAccountId = getValues("accountId");
+        if (!currentAccountId && accounts.length > 0 && !editMode) {
+            const defaultAccount = accounts.find((ac) => ac.isDefault) || accounts[0];
+            if (defaultAccount) {
+                setValue("accountId", defaultAccount.id);
+            }
+        }
+    }, [accounts, editMode, setValue, getValues]);
+
     const type = watch("type");
     const category = watch("category");
     const accountId = watch("accountId");
