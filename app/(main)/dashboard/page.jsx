@@ -24,10 +24,7 @@ export default async function DashboardPage() {
     const defaultAccount = accounts?.find((account) => account.isDefault);
 
     // Get budget for default account
-    let budgetData = null;
-    if (defaultAccount) {
-        budgetData = await getCurrentBudget(defaultAccount.id);
-    }
+    const budgetData = await getCurrentBudget(defaultAccount?.id);
 
     return (
         <div className="space-y-4 md:space-y-8">

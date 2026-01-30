@@ -44,7 +44,7 @@ export async function getCurrentBudget(accountId) {
           gte: startOfMonth,
           lte: endOfMonth,
         },
-        accountId,
+        ...(accountId ? { accountId } : {}),
       },
       _sum: {
         amount: true,
