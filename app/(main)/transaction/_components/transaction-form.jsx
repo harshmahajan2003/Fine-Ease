@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, Loader2, Sparkles } from "lucide-react";
+import { CalendarIcon, Loader2, Sparkles, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -268,7 +268,25 @@ export function AddTransactionForm({
                             </span>
                         </div>
                     </div>
-                ) : null}
+                ) : (
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Account</label>
+                        <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md text-yellow-700 text-sm flex flex-col gap-3">
+                            <div className="flex items-center gap-2">
+                                <AlertCircle className="h-4 w-4" />
+                                <span>You need an active account to create a transaction.</span>
+                            </div>
+                            <CreateAccountDrawer>
+                                <Button
+                                    variant="outline"
+                                    className="w-full bg-white border-yellow-300 text-yellow-800 hover:bg-yellow-100"
+                                >
+                                    + Create New Account
+                                </Button>
+                            </CreateAccountDrawer>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Category */}

@@ -77,7 +77,7 @@ export default async function AnalyticsPage() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 md:mb-8">
                 <div>
                     <h1 className="text-2xl md:text-4xl font-bold gradient-title mb-2">
-                        📈 Advanced Analytics (v1.1)
+                        📈 Advanced Analytics
                     </h1>
                     <p className="text-sm md:text-base text-gray-600">
                         Deep insights into your financial health

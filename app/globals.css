@@ -151,3 +151,13 @@ html {
   background-size: 200% 200%;
   animation: gradientMove 3s ease infinite;
 }
+
+@layer base {
+
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    cursor: pointer;
+  }
+}
