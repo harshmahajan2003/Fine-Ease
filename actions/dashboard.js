@@ -9,10 +9,10 @@ import { checkUser } from "@/lib/check-user";
 
 const serializeTransaction = (obj) => {
   const serialized = { ...obj };
-  if (obj.balance) {
+  if (obj.balance && typeof obj.balance.toNumber === "function") {
     serialized.balance = obj.balance.toNumber();
   }
-  if (obj.amount) {
+  if (obj.amount && typeof obj.amount.toNumber === "function") {
     serialized.amount = obj.amount.toNumber();
   }
   return serialized;
