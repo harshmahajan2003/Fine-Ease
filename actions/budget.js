@@ -8,7 +8,7 @@ import { checkUser } from "@/lib/check-user";
 export async function getCurrentBudget(accountId) {
   try {
     const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return null;
 
     let user = await db.user.findUnique({
       where: { clerkUserId: userId },
@@ -18,9 +18,7 @@ export async function getCurrentBudget(accountId) {
       user = await checkUser();
     }
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
     const budget = await db.budget.findFirst({
       where: {
@@ -64,7 +62,7 @@ export async function getCurrentBudget(accountId) {
     };
   } catch (error) {
     console.error("Error fetching budget:", error);
-    throw error;
+    return null;
   }
 }
 

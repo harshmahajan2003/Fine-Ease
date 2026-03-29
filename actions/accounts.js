@@ -17,8 +17,9 @@ const serializeDecimal = (obj) => {
 };
 
 export async function getAccountWithTransactions(accountId) {
+  try {
     const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+    if (!userId) return null;
 
     let user = await db.user.findUnique({
         where: { clerkUserId: userId },
@@ -28,7 +29,7 @@ export async function getAccountWithTransactions(accountId) {
         user = await checkUser();
     }
 
-    if (!user) throw new Error("User not found");
+    if (!user) return null;
 
     const account = await db.account.findFirst({
         where: {
@@ -51,6 +52,10 @@ export async function getAccountWithTransactions(accountId) {
         ...serializeDecimal(account),
         transactions: account.transactions.map(serializeDecimal),
     };
+  } catch (error) {
+    console.error("getAccountWithTransactions error:", error);
+    return null;
+  }
 }
 
 export async function bulkDeleteTransactions(transactionIds) {
