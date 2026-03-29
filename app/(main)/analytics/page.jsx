@@ -55,20 +55,17 @@ export default async function AnalyticsPage() {
     }
 
     // Fetch analytics data
-    let analyticsData;
-    try {
-        analyticsData = await getAnalyticsData();
-    } catch (error) {
+    const analyticsData = await getAnalyticsData();
+
+    if (!analyticsData) {
         return (
             <div className="container mx-auto px-4 py-12">
                 <div className="text-center text-red-500">
-                    Failed to load analytics data. Please try again.
+                    Failed to load analytics data or access denied. Please try again.
                 </div>
             </div>
         );
     }
-
-
 
     const { monthlyData, categoryData, summary, currency } = analyticsData;
 

@@ -4,21 +4,21 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma";
 
 export async function getAnalyticsData() {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
+    try {
+        const { userId } = await auth();
+        if (!userId) return null;
 
-    const user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-        include: {
-            accounts: true,
-            transactions: {
-                orderBy: { date: "desc" },
+        const user = await db.user.findUnique({
+            where: { clerkUserId: userId },
+            include: {
+                accounts: true,
+                transactions: {
+                    orderBy: { date: "desc" },
+                },
             },
-        },
-    });
+        });
 
-    if (!user) throw new Error("User not found");
-    if (!user.isPremium) throw new Error("Analytics is a premium feature");
+        if (!user || !user.isPremium) return null;
 
     const transactions = user.transactions;
     const now = new Date();
@@ -97,20 +97,24 @@ export async function getAnalyticsData() {
         ? ((currentMonthExpenses - prevMonthExpenses) / prevMonthExpenses) * 100
         : 0;
 
-    return {
-        monthlyData,
-        categoryData,
-        summary: {
-            totalIncome,
-            totalExpenses,
-            totalSavings,
-            savingsRate,
-            currentMonthIncome,
-            currentMonthExpenses,
-            currentMonthSavings,
-            incomeChange,
-            expenseChange,
-        },
-        currency: user.currency || "INR",
-    };
+        return {
+            monthlyData,
+            categoryData,
+            summary: {
+                totalIncome,
+                totalExpenses,
+                totalSavings,
+                savingsRate,
+                currentMonthIncome,
+                currentMonthExpenses,
+                currentMonthSavings,
+                incomeChange,
+                expenseChange,
+            },
+            currency: user.currency || "INR",
+        };
+    } catch (error) {
+        console.error("getAnalyticsData error:", error);
+        return null;
+    }
 }
