@@ -51,36 +51,36 @@ const Header = async () => {
         {/* Desktop Action Buttons - Hidden on mobile */}
         <div className="hidden md:flex items-center space-x-3">
           <SignedIn>
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/dashboard">
                 <LayoutDashboard size={16} />
                 <span className="ml-1">Dashboard</span>
-              </Button>
-            </Link>
-            <Link href="/pricing">
-              <Button variant="outline" size="sm" className="border-purple-300 text-purple-600 hover:bg-purple-50">
+              </Link>
+            </Button>
+            <Button variant="outline" size="sm" className="border-purple-300 text-purple-600 hover:bg-purple-50" asChild>
+              <Link href="/pricing">
                 <Sparkles size={16} />
                 <span className="ml-1">Premium</span>
-              </Button>
-            </Link>
-            <Link href="/analytics">
-              <Button variant="outline" size="sm" className="border-blue-300 text-blue-600 hover:bg-blue-50">
+              </Link>
+            </Button>
+            <Button variant="outline" size="sm" className="border-blue-300 text-blue-600 hover:bg-blue-50" asChild>
+              <Link href="/analytics">
                 <BarChart3 size={16} />
                 <span className="ml-1">Analytics</span>
-              </Button>
-            </Link>
-            <Link href="/support">
-              <Button variant="outline" size="sm" className="border-green-300 text-green-600 hover:bg-green-50">
+              </Link>
+            </Button>
+            <Button variant="outline" size="sm" className="border-green-300 text-green-600 hover:bg-green-50" asChild>
+              <Link href="/support">
                 <Headphones size={16} />
                 <span className="ml-1">Support</span>
-              </Button>
-            </Link>
-            <Link href="/transaction/create">
-              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              </Link>
+            </Button>
+            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white" asChild>
+              <Link href="/transaction/create">
                 <PenBox size={16} />
                 <span className="ml-1">Add Transaction</span>
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </SignedIn>
           <SignedOut>
             <SignInButton forceRedirectUrl="/dashboard">
