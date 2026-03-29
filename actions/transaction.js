@@ -123,7 +123,7 @@ export async function createTransaction(data) {
         return { success: true, data: serializeAmount(transaction) };
     } catch (error) {
         console.error("Transaction creation error:", error);
-        throw new Error(error.message);
+        return { success: false, error: error.message };
     }
 }
 
@@ -148,7 +148,7 @@ export async function getTransaction(id) {
         },
     });
 
-    if (!transaction) throw new Error("Transaction not found");
+    if (!transaction) return null;
 
     return serializeAmount(transaction);
 }

@@ -131,7 +131,8 @@ export async function createAccount(data) {
     revalidatePath("/dashboard");
     return { success: true, data: serializedAccount };
   } catch (error) {
-    throw new Error(error.message);
+    console.error("getDashboardData error:", error);
+    return [];
   }
 }
 
