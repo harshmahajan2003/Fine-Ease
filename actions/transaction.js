@@ -128,35 +128,9 @@ export async function createTransaction(data) {
 }
 
 export async function getTransaction(id) {
-    const { userId } = await auth();
-    if (!userId) throw new Error("Unauthorized");
-
-    let user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-    });
-
-    if (!user) {
-        user = await checkUser();
-    }
-
-    if (!user) throw new Error("User not found");
-
-    const transaction = await db.transaction.findUnique({
-        where: {
-            id,
-            userId: user.id,
-        },
-    });
-
-    if (!transaction) return null;
-
-    return serializeAmount(transaction);
-}
-
-export async function updateTransaction(id, data) {
     try {
         const { userId } = await auth();
-        if (!userId) throw new Error("Unauthorized");
+        if (!userId) return null;
 
         let user = await db.user.findUnique({
             where: { clerkUserId: userId },
@@ -166,7 +140,38 @@ export async function updateTransaction(id, data) {
             user = await checkUser();
         }
 
-        if (!user) throw new Error("User not found");
+        if (!user) return null;
+
+        const transaction = await db.transaction.findUnique({
+            where: {
+                id,
+                userId: user.id,
+            },
+        });
+
+        if (!transaction) return null;
+
+        return serializeAmount(transaction);
+    } catch (error) {
+        console.error("getTransaction error:", error);
+        return null;
+    }
+}
+
+export async function updateTransaction(id, data) {
+    try {
+        const { userId } = await auth();
+        if (!userId) return { success: false, error: "Unauthorized" };
+
+        let user = await db.user.findUnique({
+            where: { clerkUserId: userId },
+        });
+
+        if (!user) {
+            user = await checkUser();
+        }
+
+        if (!user) return { success: false, error: "User not found" };
 
         // Get original transaction to calculate balance change
         const originalTransaction = await db.transaction.findUnique({
@@ -179,7 +184,7 @@ export async function updateTransaction(id, data) {
             },
         });
 
-        if (!originalTransaction) throw new Error("Transaction not found");
+        if (!originalTransaction) return { success: false, error: "Transaction not found" };
 
         // Calculate balance changes
         const oldBalanceChange =
@@ -234,15 +239,13 @@ export async function updateTransaction(id, data) {
 export async function getUserTransactions(query = {}) {
     try {
         const { userId } = await auth();
-        if (!userId) throw new Error("Unauthorized");
+        if (!userId) return { success: false, error: "Unauthorized" };
 
         const user = await db.user.findUnique({
             where: { clerkUserId: userId },
         });
 
-        if (!user) {
-            throw new Error("User not found");
-        }
+        if (!user) return { success: false, error: "User not found" };
 
         const transactions = await db.transaction.findMany({
             where: {
