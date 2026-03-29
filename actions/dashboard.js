@@ -92,7 +92,7 @@ export async function createAccount(data) {
     });
 
     if (!user) {
-      throw new Error("User not found");
+      return { success: false, error: "User not found" };
     }
 
     // Convert balance to float before saving
