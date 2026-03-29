@@ -231,7 +231,8 @@ export async function updateTransaction(id, data) {
 
         return { success: true, data: serializeAmount(transaction) };
     } catch (error) {
-        throw new Error(error.message);
+        console.error("updateTransaction error:", error);
+        return { success: false, error: error.message };
     }
 }
 
@@ -262,7 +263,8 @@ export async function getUserTransactions(query = {}) {
 
         return { success: true, data: transactions };
     } catch (error) {
-        throw new Error(error.message);
+        console.error("getUserTransactions error:", error);
+        return { success: false, data: [], error: error.message };
     }
 }
 
