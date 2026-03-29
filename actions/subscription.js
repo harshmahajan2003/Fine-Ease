@@ -6,32 +6,42 @@ import { stripe } from "@/lib/stripe";
 import { revalidatePath } from "next/cache";
 
 export async function getUserSubscription() {
-    const { userId } = await auth();
-    if (!userId) return null;
+    try {
+        const { userId } = await auth();
+        if (!userId) return null;
 
-    const user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-        select: {
-            isPremium: true,
-            subscriptionId: true,
-            subscriptionEnd: true,
-            currency: true,
-        },
-    });
+        const user = await db.user.findUnique({
+            where: { clerkUserId: userId },
+            select: {
+                isPremium: true,
+                subscriptionId: true,
+                subscriptionEnd: true,
+                currency: true,
+            },
+        });
 
-    return user;
+        return user;
+    } catch (error) {
+        console.error("getUserSubscription error:", error);
+        return null;
+    }
 }
 
 export async function getUserCurrency() {
-    const { userId } = await auth();
-    if (!userId) return "INR";
+    try {
+        const { userId } = await auth();
+        if (!userId) return "INR";
 
-    const user = await db.user.findUnique({
-        where: { clerkUserId: userId },
-        select: { currency: true, isPremium: true },
-    });
+        const user = await db.user.findUnique({
+            where: { clerkUserId: userId },
+            select: { currency: true, isPremium: true },
+        });
 
-    return user?.currency || "INR";
+        return user?.currency || "INR";
+    } catch (error) {
+        console.error("getUserCurrency error:", error);
+        return "INR";
+    }
 }
 
 export async function updateUserCurrency(currencyCode) {

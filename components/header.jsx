@@ -10,16 +10,22 @@ import { CurrencySelector } from "@/components/currency-selector";
 import { MobileNav } from "@/components/mobile-nav";
 
 const Header = async () => {
-  await checkUser();
+  try {
+    await checkUser();
+  } catch (error) {
+    console.error("Header checkUser error:", error);
+  }
 
   let isPremium = false;
   let currency = "INR";
   try {
     const subscription = await getUserSubscription();
-    isPremium = subscription?.isPremium || false;
-    currency = subscription?.currency || "INR";
+    if (subscription) {
+      isPremium = subscription.isPremium || false;
+      currency = subscription.currency || "INR";
+    }
   } catch (error) {
-    // User not authenticated, ignore
+    console.error("Header subscription error:", error);
   }
 
   return (
